@@ -4,12 +4,12 @@ public class Exercise {
 
     private String exerciseType;
     private String intensityType;
-    private float intensityLevel;
+    private double intensityLevel;
 
 
     // REQUIRES: exerciseCat must be "Endurance", "Strength", or "Flexibility"
     // MODIFIES: this
-    public Exercise(String exerciseCat, float intensity) {
+    public Exercise(String exerciseCat, double intensity) {
         this.exerciseType = exerciseCat;
         this.intensityType = setIntensityType(exerciseType);
         this.intensityLevel = intensity;
@@ -22,7 +22,7 @@ public class Exercise {
     //          - if "Strength" produces "Sets"
     //          - if "Flexibility" produces "Time"
 
-    private String setIntensityType(String exerciseType) {
+    public String setIntensityType(String exerciseType) {
         if (exerciseType.equals("Endurance")) {
             return "Distance";
         }
@@ -33,6 +33,20 @@ public class Exercise {
             return "Time";
         }
     }
+
+    public String getExerciseType() {
+        return null;
+    }
+
+    public String getIntensityType() {
+        return null;
+    }
+
+    public double getIntensityLevel() {
+        return 0.0;
+    }
+
+
 
 
 
