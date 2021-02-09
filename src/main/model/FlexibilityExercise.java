@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class FlexibilityExercise implements Exercise {
+public class FlexibilityExercise extends Exercise {
 
     private String exerciseType;
     private String exerciseName;
@@ -14,37 +14,16 @@ public class FlexibilityExercise implements Exercise {
     //           - dur and reps must be > 0
     // MODIFIES: this
     // EFFECTS:  sets the exercise name, exercise type, duration (in seconds), and repetitions done
-
     public FlexibilityExercise(String name, String exerciseType, double dur, int reps) {
-        this.exerciseName = name;
-        this.exerciseType = exerciseType;
-        this.duration = dur;
+        super(name, exerciseType, dur);
         this.repetitions = reps;
     }
 
-
-    @Override
-    public String getExerciseName() {
-        return null;
+    // EFFECTS: returns the amount of repetitions done
+    public int getRepetitions() {
+        return 0; // STUB
     }
 
-    @Override
-    public String getExerciseType() {
-        return null;
-    }
-
-    @Override
-    public double getDuration() {
-        return 0;
-    }
-
-    @Override
-    public double totalCaloriesBurned() {
-        return 0;
-    }
-
-    @Override
-    public double totalDuration() {
-        return 0;
-    }
 }
+
+

@@ -9,6 +9,13 @@ public class Workout {
     private int duration;
     private ArrayList<Exercise> log;
 
+    // Following averages were all found in Harvard Health Publishing, averages and ballpark ranges
+
+    private final double avgCalsBurntPerMinStrength = 4.5;
+    private final double avgCalsBurntPerMinEndurance = 11.3;
+    private final double avgCalsBurntPerMinFlexibility = 5.9;
+
+
 
     // REQUIRES:
     // MODIFIES: This
@@ -18,7 +25,7 @@ public class Workout {
         this.calories = cals;
         this.date = date;
         this.duration = totalDuration();
-        this.log = new ArrayList<>();
+        // this.log = new ArrayList<Exercise>();
 
     }
 

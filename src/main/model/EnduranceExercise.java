@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class EnduranceExercise implements Exercise {
+public class EnduranceExercise extends Exercise {
 
     private String exerciseType;
     private String exerciseName;
@@ -16,36 +16,13 @@ public class EnduranceExercise implements Exercise {
     // EFFECTS:  sets the exercise name, exercise type, duration (in seconds), and distance (in meters)
 
     public EnduranceExercise(String name, String exerciseType, double dur, double dist) {
-        this.exerciseName = name;
-        this.exerciseType = exerciseType;
-        this.duration = dur;
+        super(name, exerciseType, dur);
         this.distance = dist;
-
     }
 
 
-    @Override
-    public String getExerciseName() {
-        return null;
-    }
-
-    @Override
-    public String getExerciseType() {
-        return null;
-    }
-
-    @Override
-    public double getDuration() {
-        return 0;
-    }
-
-    @Override
-    public double totalCaloriesBurned() {
-        return 0;
-    }
-
-    @Override
-    public double totalDuration() {
-        return 0;
+    // EFFECTS: returns the distance travelled in km
+    public int getDistance() {
+        return 0; // STUB
     }
 }
