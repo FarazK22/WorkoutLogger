@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class FlexibilityExercise extends Exercise {
 
     private String exerciseType;
@@ -14,14 +12,14 @@ public class FlexibilityExercise extends Exercise {
     //           - dur and reps must be > 0
     // MODIFIES: this
     // EFFECTS:  sets the exercise name, exercise type, duration (in seconds), and repetitions done
-    public FlexibilityExercise(String name, String exerciseType, double dur, int reps) {
+    public FlexibilityExercise(String name, String exerciseType, int dur, int reps) {
         super(name, exerciseType, dur);
         this.repetitions = reps;
     }
 
     // EFFECTS: returns the amount of repetitions done
     public int getRepetitions() {
-        return 0; // STUB
+        return this.repetitions;
     }
 
 }

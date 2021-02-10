@@ -3,7 +3,7 @@ package model;
 public abstract class Exercise {
     protected String exerciseType;
     protected String exerciseName;
-    protected double duration;
+    protected int duration;
 
     // REQUIRES: - name must be non-empty
     //           - exerciseType must be one of "Endurance", "Flexibility", "Strength"
@@ -11,24 +11,24 @@ public abstract class Exercise {
     // MODIFIES: this
     // EFFECTS:  sets the exercise name, exercise type, and duration in seconds
 
-    public Exercise(String name, String exerciseType, double dur) {
-        this.exerciseType = exerciseType;
+    public Exercise(String name, String exerciseType, int dur) {
         this.exerciseName = name;
+        this.exerciseType = exerciseType;
         this.duration = dur;
     }
 
     // EFFECTS: returns the exercise name
     public String getExerciseName() {
-        return null;
+        return this.exerciseName;
     }
 
     // EFFECTS: returns the exercise type
     public String getExerciseType() {
-        return null; // STUB
+        return this.exerciseType;
     }
 
     // EFFECTS: returns the duration
-    public double getDuration() {
-        return 0.0; // STUB
+    public int getDuration() {
+        return this.duration;
     }
 }

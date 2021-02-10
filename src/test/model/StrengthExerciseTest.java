@@ -12,6 +12,7 @@ class StrengthExerciseTest {
 
     @BeforeEach
     void runBefore() {
+
         testExercise = new StrengthExercise("Bench Press", "Strength", 45, 8, 195);
     }
 

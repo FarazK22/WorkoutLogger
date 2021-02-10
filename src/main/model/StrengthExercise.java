@@ -1,9 +1,9 @@
 package model;
 
-import java.util.ArrayList;
-
 public class StrengthExercise extends Exercise {
 
+    private String exerciseType;
+    private String exerciseName;
     private int weight;
     private int repetitions;
 
@@ -15,20 +15,20 @@ public class StrengthExercise extends Exercise {
     // MODIFIES: this
     // EFFECTS:  sets the exercise name, exercise type, duration, repetitions done, and weight lifted according to
     //           the input values
-    public StrengthExercise(String name, String exerciseType, double dur, int reps, int lb) {
-        super(exerciseType, name, dur);
+    public StrengthExercise(String name, String exerciseType, int dur, int reps, int lb) {
+        super(name, exerciseType, dur);
         this.repetitions = reps;
         this.weight = lb;
     }
 
     // EFFECTS: returns the weight lifted for this exercise
     public int getWeight() {
-        return 0; // STUB
+        return this.weight;
     }
 
     // EFFECTS: returns the amount of repetitions done
     public int getRepetitions() {
-        return 0; // STUB
+        return this.repetitions;
     }
 
 
