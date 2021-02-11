@@ -1,6 +1,8 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+
 import model.Exercise;
 
 public class Workout {
@@ -9,6 +11,7 @@ public class Workout {
     // private int date;
     private int duration;
     private ArrayList<Exercise> exercises;
+    DecimalFormat df = new DecimalFormat("#.0");
 
     // Following averages were all found in Harvard Health Publishing, averages and ballpark ranges
 
@@ -22,49 +25,40 @@ public class Workout {
 
     public Workout() {
         this.exercises = new ArrayList<>();
-        this.duration = 0;
-        totalCaloriesBurnt();
-        totalDuration();
-
     }
 
     // MODIFIES: this
     // EFFECTS: adds new exercise of exerciseType to the list of exercises
     public void addExercise(Exercise exercise) {
         exercises.add(exercise);
+        totalDuration(exercise);
+        totalCaloriesBurnt(exercise);
     }
 
 
     // REQUIRES: non-empty list of exercises
     // MODIFIES: this
     // EFFECTS: totals the calories burnt in the exercise list
-    public void totalCaloriesBurnt() {
-        double csf = 0.0;
-        for (Exercise e : this.exercises) {
-            if (e.exerciseType.equals("Strength")) {
-                csf += (avgCalsBurntPerMinStrength * (e.duration / 60));
-            } else if (e.exerciseType.equals("Flexibility")) {
-                csf += (avgCalsBurntPerMinFlexibility * (e.duration / 60));
-            } else {
-                csf += (avgCalsBurntPerMinEndurance * (e.duration / 60));
-            }
+    public void totalCaloriesBurnt(Exercise e) {
+        if (e.exerciseType.equals("Strength")) {
+            this.calories += (avgCalsBurntPerMinStrength * ((e.duration * 1.0) / 60));
+        } else if (e.exerciseType.equals("Flexibility")) {
+            this.calories += (avgCalsBurntPerMinFlexibility * ((e.duration * 1.0) / 60));
+        } else {
+            this.calories += (avgCalsBurntPerMinEndurance * ((e.duration * 1.0) / 60));
         }
-        this.calories = csf;
     }
 
 
     // REQUIRES: non-empty list of exercises
     // MODIFIES: this
     // EFFECTS: totals the duration of each exercise in the list so far
-    public void totalDuration() {
-
-        for (Exercise e : exercises) {
-            this.duration += e.duration;
-        }
+    public void totalDuration(Exercise e) {
+        this.duration += e.duration;
     }
 
-    public double getCalories() {
-        return this.calories;
+    public String getCalories() {
+        return df.format(this.calories);
     }
 
     public int getDuration() {
@@ -74,7 +68,6 @@ public class Workout {
     public ArrayList<Exercise> getExercises() {
         return this.exercises;
     }
-
 
 
 }

@@ -17,11 +17,11 @@ public class WorkoutTest {
     @BeforeEach
     private void runBefore() {
         testWorkout = new Workout();
-        Exercise e1 = new EnduranceExercise("Biking", "Endurance", 600, 8);
-        Exercise e2 = new StrengthExercise("Bench Press", "Strength", 45, 8, 225);
-        Exercise e3 = new FlexibilityExercise("Side Lunge", "Flexibility", 60, 10);
-        Exercise e4 = new StrengthExercise("Deadlift", "Strength", 40, 4, 275);
-        Exercise e5 = new EnduranceExercise("Jog", "Endurance", 1530, 5.5);
+        e1 = new EnduranceExercise("Biking", "Endurance", 600, 8);
+        e2 = new StrengthExercise("Bench Press", "Strength", 45, 8, 225);
+        e3 = new FlexibilityExercise("Side Lunge", "Flexibility", 60, 10);
+        e4 = new StrengthExercise("Deadlift", "Strength", 40, 4, 275);
+        e5 = new EnduranceExercise("Jog", "Endurance", 1530, 5.5);
 
     }
 
@@ -71,7 +71,7 @@ public class WorkoutTest {
         testWorkout.addExercise(e1);
 
 
-        assertEquals(113.0, testWorkout.getCalories());
+        assertEquals("113.0", testWorkout.getCalories());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class WorkoutTest {
         testWorkout.addExercise(e4);
         testWorkout.addExercise(e5);
 
-        assertEquals(294.5, testWorkout.getCalories());
+        assertEquals("294.5", testWorkout.getCalories());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class WorkoutTest {
         testWorkout.addExercise(e1);
         testWorkout.addExercise(e3);
 
-        assertEquals(413.4, testWorkout.getCalories());
+        assertEquals("413.4", testWorkout.getCalories());
     }
 
     @Test
