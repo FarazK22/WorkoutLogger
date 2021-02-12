@@ -13,7 +13,7 @@ public class Workout {
     private ArrayList<Exercise> exercises;
     DecimalFormat df = new DecimalFormat("#.0");
 
-    // Following averages were all found in Harvard Health Publishing, averages and ballpark ranges
+    // Following averages were all found in Harvard Health Publishing
 
     public final double avgCalsBurntPerMinStrength = 4.5;
     public final double avgCalsBurntPerMinEndurance = 11.3;

@@ -11,11 +11,13 @@ public abstract class Exercise {
     // MODIFIES: this
     // EFFECTS:  sets the exercise name, exercise type, and duration in seconds
 
+
     public Exercise(String name, String exerciseType, int dur) {
         this.exerciseName = name;
         this.exerciseType = exerciseType;
         this.duration = dur;
     }
+
 
     // EFFECTS: returns the exercise name
     public String getExerciseName() {
@@ -31,4 +33,5 @@ public abstract class Exercise {
     public int getDuration() {
         return this.duration;
     }
+
 }
