@@ -3,13 +3,11 @@ package model;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import model.Exercise;
-
 public class Workout {
 
-    private double calories;
+    protected double workoutCalories;
     // private int date;
-    private int duration;
+    protected int workoutDuration;
     private ArrayList<Exercise> exercises;
     DecimalFormat df = new DecimalFormat("#.0");
 
@@ -41,11 +39,11 @@ public class Workout {
     // EFFECTS: totals the calories burnt in the exercise list
     public void totalCaloriesBurnt(Exercise e) {
         if (e.exerciseType.equals("Strength")) {
-            this.calories += (avgCalsBurntPerMinStrength * ((e.duration * 1.0) / 60));
+            this.workoutCalories += (avgCalsBurntPerMinStrength * ((e.duration * 1.0) / 60));
         } else if (e.exerciseType.equals("Flexibility")) {
-            this.calories += (avgCalsBurntPerMinFlexibility * ((e.duration * 1.0) / 60));
+            this.workoutCalories += (avgCalsBurntPerMinFlexibility * ((e.duration * 1.0) / 60));
         } else {
-            this.calories += (avgCalsBurntPerMinEndurance * ((e.duration * 1.0) / 60));
+            this.workoutCalories += (avgCalsBurntPerMinEndurance * ((e.duration * 1.0) / 60));
         }
     }
 
@@ -54,15 +52,15 @@ public class Workout {
     // MODIFIES: this
     // EFFECTS: totals the duration of each exercise in the list so far
     public void totalDuration(Exercise e) {
-        this.duration += e.duration;
+        this.workoutDuration += e.duration;
     }
 
-    public String getCalories() {
-        return df.format(this.calories);
+    public String getWorkoutCalories() {
+        return df.format(this.workoutCalories);
     }
 
-    public int getDuration() {
-        return this.duration;
+    public int getWorkoutDuration() {
+        return this.workoutDuration;
     }
 
     public ArrayList<Exercise> getExercises() {

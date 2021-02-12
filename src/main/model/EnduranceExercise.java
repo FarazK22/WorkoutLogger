@@ -4,7 +4,7 @@ public class EnduranceExercise extends Exercise {
 
     private String exerciseType;
     private String exerciseName;
-    private double duration;
+    private int duration;
     private double distance;
 
     // REQUIRES: - name must be non-empty

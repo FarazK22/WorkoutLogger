@@ -15,7 +15,7 @@ public class WorkoutTest {
     private Exercise e5;
 
     @BeforeEach
-    private void runBefore() {
+    public void runBefore() {
         testWorkout = new Workout();
         e1 = new EnduranceExercise("Biking", "Endurance", 600, 8);
         e2 = new StrengthExercise("Bench Press", "Strength", 45, 8, 225);
@@ -71,7 +71,7 @@ public class WorkoutTest {
         testWorkout.addExercise(e1);
 
 
-        assertEquals("113.0", testWorkout.getCalories());
+        assertEquals("113.0", testWorkout.getWorkoutCalories());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class WorkoutTest {
         testWorkout.addExercise(e4);
         testWorkout.addExercise(e5);
 
-        assertEquals("294.5", testWorkout.getCalories());
+        assertEquals("294.5", testWorkout.getWorkoutCalories());
     }
 
     @Test
@@ -91,14 +91,14 @@ public class WorkoutTest {
         testWorkout.addExercise(e1);
         testWorkout.addExercise(e3);
 
-        assertEquals("413.4", testWorkout.getCalories());
+        assertEquals("413.4", testWorkout.getWorkoutCalories());
     }
 
     @Test
     public void testTotalDurationOne() {
         testWorkout.addExercise(e5);
 
-        assertEquals(1530, testWorkout.getDuration());
+        assertEquals(1530, testWorkout.getWorkoutDuration());
     }
 
     @Test
@@ -106,7 +106,7 @@ public class WorkoutTest {
         testWorkout.addExercise(e1);
         testWorkout.addExercise(e3);
 
-        assertEquals(660, testWorkout.getDuration());
+        assertEquals(660, testWorkout.getWorkoutDuration());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class WorkoutTest {
         testWorkout.addExercise(e1);
         testWorkout.addExercise(e3);
 
-        assertEquals(2275, testWorkout.getDuration());
+        assertEquals(2275, testWorkout.getWorkoutDuration());
     }
 
 

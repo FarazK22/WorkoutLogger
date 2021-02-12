@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WorkoutLogTest {
@@ -22,7 +23,7 @@ public class WorkoutLogTest {
 
 
     @BeforeEach
-    private void runBefore() {
+    public void runBefore() {
         testWorkoutLog = new WorkoutLog();
 
         w1 = new Workout();
@@ -53,13 +54,13 @@ public class WorkoutLogTest {
     }
 
     @Test
-    private void testAddOneWorkout() {
+    public void testAddOneWorkout() {
         testWorkoutLog.addWorkout(w1);
         assertEquals(1, testWorkoutLog.getWorkouts().size());
     }
 
     @Test
-    private void testAddTwoSameWorkout() {
+    public void testAddTwoSameWorkout() {
         testWorkoutLog.addWorkout(w1);
         testWorkoutLog.addWorkout(w1);
 
@@ -68,7 +69,7 @@ public class WorkoutLogTest {
     }
 
     @Test
-    private void testAddSomeWorkouts() {
+    public void testAddSomeWorkouts() {
         testWorkoutLog.addWorkout(w1);
         testWorkoutLog.addWorkout(w2);
         testWorkoutLog.addWorkout(w3);
@@ -77,7 +78,7 @@ public class WorkoutLogTest {
     }
 
     @Test
-    private void testAddManyWorkouts() {
+    public void testAddManyWorkouts() {
         testWorkoutLog.addWorkout(w1);
         testWorkoutLog.addWorkout(w1);
         testWorkoutLog.addWorkout(w2);
@@ -111,19 +112,19 @@ public class WorkoutLogTest {
 //    private void testManyWorkoutCalories() {}
 
     @Test
-    private void testOneWorkoutOneExerciseDuration() {
+    public void testOneWorkoutOneExerciseDuration() {
         testWorkoutLog.addWorkout(w4);
         assertEquals(1530, testWorkoutLog.getTotalDuration());
     }
 
     @Test
-    private void testOneWorkoutManyExerciseDuration() {
+    public void testOneWorkoutManyExerciseDuration() {
         testWorkoutLog.addWorkout(w2);
         assertEquals(1615, testWorkoutLog.getTotalDuration());
     }
 
     @Test
-    private void testSomeWorkoutDuration() {
+    public void testSomeWorkoutDuration() {
         testWorkoutLog.addWorkout(w3);
         testWorkoutLog.addWorkout(w2);
 
@@ -131,7 +132,7 @@ public class WorkoutLogTest {
     }
 
     @Test
-    private void testManyWorkoutDurations() {
+    public void testManyWorkoutDurations() {
         testWorkoutLog.addWorkout(w1);
         testWorkoutLog.addWorkout(w2);
         testWorkoutLog.addWorkout(w3);

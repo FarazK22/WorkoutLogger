@@ -4,7 +4,7 @@ public class FlexibilityExercise extends Exercise {
 
     private String exerciseType;
     private String exerciseName;
-    private double duration;
+    private int duration;
     private int repetitions;
 
     // REQUIRES: - name must be non-empty
