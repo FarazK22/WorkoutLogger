@@ -71,9 +71,21 @@ public class WorkoutLogApp {
 
     // EFFECTS: presents list of selectable workouts for user to select and view total calories burnt
     private void selectWorkout() {
-        int indexResponse = 0;
-        System.out.println("Here is a summary of your workouts so far:");
-        System.out.println(log.printWorkouts());
+        boolean keepGoing = true;
+        String command = null;
+
+        while (keepGoing) {
+            System.out.println("Here is a summary of your workouts so far:");
+            System.out.println(log.printWorkouts());
+            System.out.println("Hit 'b' to go back to the main menu");
+            command = input.next();
+            command = command.toLowerCase();
+
+            if (command.equals("b")) {
+                keepGoing = false;
+            }
+        }
+
 
 
     }
