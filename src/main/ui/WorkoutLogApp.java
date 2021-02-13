@@ -1,6 +1,10 @@
 package ui;
 
 import model.*;
+import model.exercises.EnduranceExercise;
+import model.exercises.Exercise;
+import model.exercises.FlexibilityExercise;
+import model.exercises.StrengthExercise;
 
 import java.util.Scanner;
 
@@ -46,6 +50,7 @@ public class WorkoutLogApp {
         System.out.println("\nGoodbye!");
     }
 
+    // MODIFIES: this
     // EFFECTS: processes the user input
     private void processCommand(String command) {
         if (command.equals("s")) {
@@ -59,10 +64,18 @@ public class WorkoutLogApp {
         }
     }
 
+    // EFFECTS: presents list of selectable workouts for user to select and add exercises to
     private void editWorkout() {
+
     }
 
+    // EFFECTS: presents list of selectable workouts for user to select and view total calories burnt
     private void selectWorkout() {
+        int indexResponse = 0;
+        System.out.println("Here is a summary of your workouts so far:");
+        System.out.println(log.printWorkouts());
+
+
     }
 
 
@@ -81,11 +94,11 @@ public class WorkoutLogApp {
     // EFFECTS: Starts up workout log app with two workouts already logged
     private void boot() {
 
-        workout1 = new Workout();
+        workout1 = new Workout("02/01/2021");
         workout1.addExercise(e1);
         workout1.addExercise(e2);
 
-        workout2 = new Workout();
+        workout2 = new Workout("02/08/2021");
         workout2.addExercise(e3);
         workout2.addExercise(e4);
 
@@ -97,10 +110,13 @@ public class WorkoutLogApp {
         input = new Scanner(System.in);
     }
 
+    // MODIFIES: This
+    // EFFECTS: Starts a new workout and processes user input to determine when to stop adding workouts
     private void startNewWorkout() {
 
         boolean keepGoing = true;
-        Workout newWorkout = new Workout();
+        String date = todaysDate();
+        Workout newWorkout = new Workout(date);
         String ynResponse = "";
 
         while (keepGoing) {
@@ -118,7 +134,15 @@ public class WorkoutLogApp {
         }
     }
 
+    // EFFECTS: Processes the user input as the date of the workout
+    private String todaysDate() {
+        System.out.println("Enter today's date in the format 'MM/DD/YYYY'");
+        String date = input.next();
+        return date;
+    }
 
+
+    // EFFECTS: Processes the user input to select which exercise type they will add to workout
     private Exercise selectExercise() {
         String selection = "";  // force entry into loop
 
@@ -144,32 +168,40 @@ public class WorkoutLogApp {
         }
     }
 
+    // REQUIRES: non-empty int
+    // EFFECTS: processes the user input as the weight lifted for strength exercise
     private int inputExerciseWeight() {
         System.out.println("Enter the weight you just lifted (in lb)");
         int weight = input.nextInt();
         return weight;
     }
 
-
+    // REQUIRES: non-empty int
+    // EFFECTS: processes the user input as the repetitions completed
     private int inputExerciseRepetitions() {
         System.out.println("Enter the repetitions you just completed");
         int reps = input.nextInt();
         return reps;
     }
 
+    // REQUIRES: non-empty int
+    // EFFECTS: processes the user input as the duration
     private int inputExerciseDuration() {
         System.out.println("Enter the duration of the exercise (in seconds)");
         int duration = input.nextInt();
         return duration;
     }
 
+    // REQUIRES: non-empty string
+    // EFFECTS: processes the user input as the name of the exercise completed
     private String inputExerciseName() {
         System.out.println("Enter the name of the exercise you completed");
         String name = input.next();
         return name;
     }
 
-
+    // REQUIRES: non-empty double
+    // EFFECTS: processes the user input as the distance traveled in exercise (in km)
     private double inputDistance() {
 
         System.out.println("Enter the distance travelled (in km)");
@@ -177,6 +209,11 @@ public class WorkoutLogApp {
         return inputDistance;
     }
 
+    // EFFECTS: inputs values from helper methods to assign exercise:
+    //          - name
+    //          - duration
+    //          - repetitions
+    //          - weight lifted
     private Exercise addStrengthExercise() {
 
         String name = inputExerciseName();
@@ -191,6 +228,10 @@ public class WorkoutLogApp {
 
     }
 
+    // EFFECTS: inputs values from helper methods to assign exercise:
+    //          - name
+    //          - duration
+    //          - distance travelled
     private Exercise addEnduranceExercise() {
 
         String name = inputExerciseName();
@@ -202,6 +243,10 @@ public class WorkoutLogApp {
         return enduranceExercise;
     }
 
+    // EFFECTS: inputs values from helper methods to assign exercise:
+    //          - name
+    //          - duration
+    //          - repetitions
     private Exercise addFlexibilityExercise() {
 
         String name = inputExerciseName();

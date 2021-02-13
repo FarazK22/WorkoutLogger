@@ -1,9 +1,9 @@
-package model;
+package model.exercises;
 
 public abstract class Exercise {
-    protected String exerciseType;
+    private String exerciseType;
     protected String exerciseName;
-    protected int duration;
+    private int duration;
 
     // REQUIRES: - name must be non-empty
     //           - exerciseType must be one of "Endurance", "Flexibility", "Strength"

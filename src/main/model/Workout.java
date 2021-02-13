@@ -1,12 +1,17 @@
 package model;
 
+import model.exercises.Exercise;
+
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Workout {
 
     protected double workoutCalories;
-    // private int date;
+    private String date;
     protected int workoutDuration;
     private ArrayList<Exercise> exercises;
     DecimalFormat df = new DecimalFormat("#.0");
@@ -18,15 +23,19 @@ public class Workout {
     public final double avgCalsBurntPerMinFlexibility = 5.9;
 
 
+    // REQUIRES: String must be in "MM/DD/YYYY" format
     // MODIFIES: this
     // EFFECTS: Starts a new workout
-
-    public Workout() {
+    public Workout(String date) {
         this.exercises = new ArrayList<>();
+        this.date = date;
     }
 
     // MODIFIES: this
-    // EFFECTS: adds new exercise of exerciseType to the list of exercises
+    // EFFECTS: adds new exercise of exerciseType to the list of exercises and calls methods to calculate:
+    //          - exercise duration
+    //          - calories burnt
+    //          - and the date of the workout
     public void addExercise(Exercise exercise) {
         exercises.add(exercise);
         totalDuration(exercise);
@@ -34,16 +43,17 @@ public class Workout {
     }
 
 
+
     // REQUIRES: non-empty list of exercises
     // MODIFIES: this
     // EFFECTS: totals the calories burnt in the exercise list
     public void totalCaloriesBurnt(Exercise e) {
-        if (e.exerciseType.equals("Strength")) {
-            this.workoutCalories += (avgCalsBurntPerMinStrength * ((e.duration * 1.0) / 60));
-        } else if (e.exerciseType.equals("Flexibility")) {
-            this.workoutCalories += (avgCalsBurntPerMinFlexibility * ((e.duration * 1.0) / 60));
+        if (e.getExerciseType().equals("Strength")) {
+            this.workoutCalories += (avgCalsBurntPerMinStrength * ((e.getDuration() * 1.0) / 60));
+        } else if (e.getExerciseType().equals("Flexibility")) {
+            this.workoutCalories += (avgCalsBurntPerMinFlexibility * ((e.getDuration() * 1.0) / 60));
         } else {
-            this.workoutCalories += (avgCalsBurntPerMinEndurance * ((e.duration * 1.0) / 60));
+            this.workoutCalories += (avgCalsBurntPerMinEndurance * ((e.getDuration() * 1.0) / 60));
         }
     }
 
@@ -52,9 +62,15 @@ public class Workout {
     // MODIFIES: this
     // EFFECTS: totals the duration of each exercise in the list so far
     public void totalDuration(Exercise e) {
-        this.workoutDuration += e.duration;
+        this.workoutDuration += e.getDuration();
     }
 
+    // EFFECTS: Returns the date in a string with the format "yyyy-mm-dd"
+    public String getDate() {
+        return this.date;
+    }
+
+    // getters
     public String getWorkoutCalories() {
         return df.format(this.workoutCalories);
     }

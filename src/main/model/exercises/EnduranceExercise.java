@@ -1,4 +1,4 @@
-package model;
+package model.exercises;
 
 public class EnduranceExercise extends Exercise {
 

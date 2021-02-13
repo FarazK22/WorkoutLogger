@@ -1,4 +1,6 @@
-package model;
+package model.exercises;
+
+import model.exercises.Exercise;
 
 public class StrengthExercise extends Exercise {
 

@@ -1,5 +1,9 @@
 package model;
 
+import model.exercises.EnduranceExercise;
+import model.exercises.Exercise;
+import model.exercises.FlexibilityExercise;
+import model.exercises.StrengthExercise;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,10 +30,10 @@ public class WorkoutLogTest {
     public void runBefore() {
         testWorkoutLog = new WorkoutLog();
 
-        w1 = new Workout();
-        w2 = new Workout();
-        w3 = new Workout();
-        w4 = new Workout();
+        w1 = new Workout("02/12/2021");
+        w2 = new Workout("02/10/2021");
+        w3 = new Workout("01/12/2021");
+        w4 = new Workout("01/25/2021");
 
         e1 = new EnduranceExercise("Biking", "Endurance", 600, 8);
         e2 = new StrengthExercise("Bench Press", "Strength", 45, 8, 225);
@@ -90,26 +94,37 @@ public class WorkoutLogTest {
         assertEquals(7, testWorkoutLog.getWorkouts().size());
     }
 
-//    @Test
-//    private void totalOneWorkoutOneExerciseCalorie() {
-//        testWorkoutLog.addWorkout(w4);
-//
-//        assertEquals();
-//
-//
-//
-//
-//
-//    }
-//
-//    @Test
-//    private void totalOneWorkoutManyExerciseCalorie(){}
-//
-//    @Test
-//    private void testSomeWorkoutCalories() {}
-//
-//    @Test
-//    private void testManyWorkoutCalories() {}
+    @Test
+    public void totalOneWorkoutOneExerciseCalorie() {
+        testWorkoutLog.addWorkout(w4);
+
+        assertEquals(288.2, testWorkoutLog.getTotalCalories());
+
+    }
+
+    @Test
+    public void totalOneWorkoutManyExerciseCalorie(){
+        testWorkoutLog.addWorkout(w3);
+
+        assertEquals(401.2, testWorkoutLog.getTotalCalories());
+    }
+
+    @Test
+    public void testSomeWorkoutCalories() {
+        testWorkoutLog.addWorkout(w3);
+        testWorkoutLog.addWorkout(w4);
+
+        assertEquals(689.4, testWorkoutLog.getTotalCalories());
+    }
+
+    @Test
+    public void testManyWorkoutCalories() {
+        testWorkoutLog.addWorkout(w1);
+        testWorkoutLog.addWorkout(w2);
+        testWorkoutLog.addWorkout(w3);
+
+        assertEquals(821.4, testWorkoutLog.getTotalCalories());
+    }
 
     @Test
     public void testOneWorkoutOneExerciseDuration() {
@@ -139,6 +154,26 @@ public class WorkoutLogTest {
         testWorkoutLog.addWorkout(w4);
 
         assertEquals(6025, testWorkoutLog.getTotalDuration());
+    }
+
+    @Test
+    public void testPrintWorkoutOne() {
+        testWorkoutLog.addWorkout(w1);
+
+        assertEquals("0 02/12/2021 - Approximately 125.7 calories burned!\n", testWorkoutLog.printWorkouts());
+    }
+
+    @Test
+    public void testPrintMultiWorkouts() {
+        testWorkoutLog.addWorkout(w3);
+        testWorkoutLog.addWorkout(w4);
+        testWorkoutLog.addWorkout(w2);
+        testWorkoutLog.addWorkout(w1);
+
+        assertEquals("0 01/12/2021 - Approximately 401.2 calories burned!\n"
+                + "1 01/25/2021 - Approximately 288.2 calories burned!\n"
+                + "2 02/10/2021 - Approximately 294.5 calories burned!\n"
+                + "3 02/12/2021 - Approximately 125.7 calories burned!\n", testWorkoutLog.printWorkouts());
     }
 
 

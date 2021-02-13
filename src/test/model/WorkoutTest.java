@@ -1,7 +1,13 @@
 package model;
 
+import model.exercises.EnduranceExercise;
+import model.exercises.Exercise;
+import model.exercises.FlexibilityExercise;
+import model.exercises.StrengthExercise;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,7 +22,7 @@ public class WorkoutTest {
 
     @BeforeEach
     public void runBefore() {
-        testWorkout = new Workout();
+        testWorkout = new Workout("02/10/2021");
         e1 = new EnduranceExercise("Biking", "Endurance", 600, 8);
         e2 = new StrengthExercise("Bench Press", "Strength", 45, 8, 225);
         e3 = new FlexibilityExercise("Side Lunge", "Flexibility", 60, 10);
@@ -120,5 +126,22 @@ public class WorkoutTest {
         assertEquals(2275, testWorkout.getWorkoutDuration());
     }
 
+    @Test
+    public void testGetDateOneAddition() {
+        testWorkout.addExercise(e1);
 
+        assertEquals("02/10/2021", testWorkout.getDate());
+    }
+
+    @Test
+    public void testGetDateMultipleAddition() {
+        testWorkout.addExercise(e2);
+        testWorkout.addExercise(e4);
+        testWorkout.addExercise(e5);
+        testWorkout.addExercise(e1);
+        testWorkout.addExercise(e3);
+
+
+        assertEquals("02/10/2021", testWorkout.getDate());
+    }
 }

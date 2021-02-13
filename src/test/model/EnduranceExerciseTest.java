@@ -1,5 +1,6 @@
 package model;
 
+import model.exercises.EnduranceExercise;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
