@@ -4,6 +4,7 @@ import model.exercises.EnduranceExercise;
 import model.exercises.Exercise;
 import model.exercises.FlexibilityExercise;
 import model.exercises.StrengthExercise;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -144,4 +145,35 @@ public class WorkoutTest {
 
         assertEquals("02/10/2021", testWorkout.getDate());
     }
+
+    @Test
+    public void testToJSON() {
+        testWorkout.addExercise(e1);
+        JSONObject json = new JSONObject();
+        json.put("date", "02/10/2021");
+        json.put("exercises", testWorkout.getExercises());
+        json.put("calories", testWorkout.getWorkoutCalories());
+        json.put("duration", testWorkout.getWorkoutDuration());
+
+        assertEquals(json.toString(), testWorkout.toJson().toString());
+
+
+    }
+
+    @Test
+    public void testToJSONMultiExercise() {
+        testWorkout.addExercise(e1);
+        testWorkout.addExercise(e2);
+
+        JSONObject json = new JSONObject();
+        json.put("date", "02/10/2021");
+        json.put("exercises", testWorkout.getExercises());
+        json.put("calories", testWorkout.getWorkoutCalories());
+        json.put("duration", testWorkout.getWorkoutDuration());
+
+        assertEquals(json.toString(), testWorkout.toJson().toString());
+
+    }
+
+
 }

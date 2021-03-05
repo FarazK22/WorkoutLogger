@@ -1,17 +1,22 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class WorkoutLog {
+public class WorkoutLog implements Writable {
 
+    protected final String name = "My log";
     protected ArrayList<Workout> workouts;
     protected int totalDuration;
     protected double totalCalories;
     DecimalFormat df = new DecimalFormat("#.0");
 
     // MODIFIES: This
-    // EFFECTS: Initializes a workout log with no workouts
+    // EFFECTS: Initializes a workout log with no workouts and a name
     public WorkoutLog() {
         this.workouts = new ArrayList<>();
     }
@@ -63,6 +68,34 @@ public class WorkoutLog {
     public double getTotalCalories() {
         return this.totalCalories;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", this.name);
+        json.put("workouts", workoutsToJson());
+        json.put("duration", this.totalDuration);
+        json.put("calories", this.totalCalories);
+
+        return json;
+
+    }
+
+    public JSONArray workoutsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Workout w : this.workouts) {
+            jsonArray.put(w.toJson());
+        }
+
+        return jsonArray;
+
+    }
+
 
 
 }

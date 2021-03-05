@@ -4,6 +4,7 @@ import model.exercises.EnduranceExercise;
 import model.exercises.Exercise;
 import model.exercises.FlexibilityExercise;
 import model.exercises.StrengthExercise;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -176,5 +177,32 @@ public class WorkoutLogTest {
                 + "3 02/12/2021 - Approximately 125.7 calories burned!\n", testWorkoutLog.printWorkouts());
     }
 
+    @Test
+    public void testToJSON() {
+        testWorkoutLog.addWorkout(w4);
+        JSONObject json = new JSONObject();
+        json.put("name", testWorkoutLog.getName());
+        json.put("workouts", testWorkoutLog.workoutsToJson());
+        json.put("calories", testWorkoutLog.getTotalCalories());
+        json.put("duration", testWorkoutLog.getTotalDuration());
 
+        assertEquals(json.toString(), testWorkoutLog.toJson().toString());
+
+
+    }
+
+    @Test
+    public void testToJSONMultiple() {
+        testWorkoutLog.addWorkout(w4);
+        testWorkoutLog.addWorkout(w1);
+        JSONObject json = new JSONObject();
+        json.put("name", testWorkoutLog.getName());
+        json.put("workouts", testWorkoutLog.workoutsToJson());
+        json.put("calories", testWorkoutLog.getTotalCalories());
+        json.put("duration", testWorkoutLog.getTotalDuration());
+
+        assertEquals(json.toString(), testWorkoutLog.toJson().toString());
+
+
+    }
 }

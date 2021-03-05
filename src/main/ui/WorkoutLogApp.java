@@ -6,15 +6,25 @@ import model.exercises.Exercise;
 import model.exercises.FlexibilityExercise;
 import model.exercises.StrengthExercise;
 
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class WorkoutLogApp {
+
+    private static final String JSON_STORE = "./data/workouts.json";
 
     private WorkoutLog log;
 
     private Workout workout1;
     private Workout workout2;
     private Scanner input;
+
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
 
     private Exercise e1 = new EnduranceExercise("Jog", "Endurance", 300, 2);
@@ -23,7 +33,9 @@ public class WorkoutLogApp {
     private Exercise e4 = new EnduranceExercise("Biking", "Endurance", 600, 6);
 
     // EFFECTS: Runs workout log app
-    public WorkoutLogApp() {
+    public WorkoutLogApp() throws FileNotFoundException {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runLog();
     }
 
@@ -53,16 +65,42 @@ public class WorkoutLogApp {
     // MODIFIES: this
     // EFFECTS: processes the user input
     private void processCommand(String command) {
-        if (command.equals("s")) {
+        if (command.equals("w")) {
             startNewWorkout();
         } else if (command.equals("v")) {
             selectWorkout();
         } else if (command.equals("e")) {
             editWorkout();
+        } else if (command.equals("s")) {
+            saveWorkouts();
+        } else if (command.equals("l")) {
+            loadWorkout();
         } else {
             System.out.println("Selection not valid...");
         }
     }
+
+    private void loadWorkout() {
+        try {
+            log = jsonReader.read();
+            System.out.println("Loaded " + log.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+    private void saveWorkouts() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(log);
+            jsonWriter.close();
+            System.out.println("Saved " + log.getName()  + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+
 
     // EFFECTS: presents list of selectable workouts for user to select and add exercises to
     private void editWorkout() {
@@ -87,7 +125,6 @@ public class WorkoutLogApp {
         }
 
 
-
     }
 
 
@@ -96,8 +133,10 @@ public class WorkoutLogApp {
 
         System.out.println("\nWelcome to your workout log!");
         System.out.println("\nSelect from:");
-        System.out.println("\ts -> start new workout");
-        System.out.println("\tv -> view workout");
+        System.out.println("\tw -> start new workout");
+        System.out.println("\tv -> view workouts");
+        System.out.println("\ts -> save workout");
+        System.out.println("\tl -> load workouts");
         System.out.println("\te -> edit workout");
         System.out.println("\tq -> quit");
     }

@@ -1,6 +1,8 @@
 package model;
 
 import model.exercises.Exercise;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -8,12 +10,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Workout {
+public class Workout implements Writable {
 
-    protected double workoutCalories;
+
     private String date;
-    protected int workoutDuration;
     private ArrayList<Exercise> exercises;
+    protected double workoutCalories;
+    protected int workoutDuration;
     DecimalFormat df = new DecimalFormat("#.0");
 
     // Following averages were all found in Harvard Health Publishing
@@ -65,7 +68,7 @@ public class Workout {
         this.workoutDuration += e.getDuration();
     }
 
-    // EFFECTS: Returns the date in a string with the format "yyyy-mm-dd"
+    // EFFECTS: Returns the date in a string with the format "MM/DD/YYYY"
     public String getDate() {
         return this.date;
     }
@@ -84,4 +87,14 @@ public class Workout {
     }
 
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("date", this.date);
+        json.put("exercises", this.exercises);
+        json.put("calories", this.getWorkoutCalories());
+        json.put("duration", this.workoutDuration);
+
+        return json;
+    }
 }
