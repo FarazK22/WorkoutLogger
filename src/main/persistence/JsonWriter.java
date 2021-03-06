@@ -8,6 +8,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+
+// Represents a writer that writes a workout log to JSON data stored in file
+// - methods referenced from the CPSC 210 JsonSerializationDemo.java file
+
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
@@ -26,7 +30,7 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workout to file
+    // EFFECTS: writes JSON representation of workout log to file
     public void write(WorkoutLog workoutLog) {
         JSONObject json = workoutLog.toJson();
         saveToFile(json.toString(TAB));

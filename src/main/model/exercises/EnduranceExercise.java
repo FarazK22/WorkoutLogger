@@ -1,5 +1,7 @@
 package model.exercises;
 
+// Extends the exercise class and adds on a distance field to record distance travelled in an endurance exercise
+
 public class EnduranceExercise extends Exercise {
 
     private String exerciseType;

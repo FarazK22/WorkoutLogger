@@ -1,0 +1,27 @@
+{
+  "duration": 350,
+  "workouts": [
+    {
+      "date": "02/01/2021",
+      "duration": 350,
+      "exercises": [
+        {
+          "duration": 300,
+          "exerciseName": "Jog",
+          "distance": 2,
+          "exerciseType": "Endurance"
+        },
+        {
+          "duration": 50,
+          "exerciseName": "Deadlift",
+          "exerciseType": "Strength",
+          "weight": 315,
+          "repetitions": 8
+        }
+      ],
+      "calories": "60.2"
+    }
+  ],
+  "name": "My log",
+  "calories": 60.2
+}

@@ -15,6 +15,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+// Represents a reader that reads a workout log from JSON data stored in file
+// - methods referenced from the CPSC 210 JsonSerializationDemo.java file
+
 public class JsonReader {
 
     private String source;
@@ -24,7 +27,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads workout from file and returns it;
+    // EFFECTS: reads workout log from file and returns it;
     // throws IOException if an error occurs reading data from file
     public WorkoutLog read() throws IOException {
         String jsonData = readFile(source);
@@ -50,6 +53,8 @@ public class JsonReader {
         return wl;
     }
 
+    // MODIFIES: wl
+    // EFFECTS: adds the next workout with a list of exercises to the workout log (wl)
     private void addNextWorkout(WorkoutLog wl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("workouts");
         for (Object json : jsonArray) {
@@ -69,7 +74,7 @@ public class JsonReader {
     }
 
     // MODIFIES: wo
-    // EFFECTS: parses exercises from JSON object and adds them to workout
+    // EFFECTS: parses proper exercises from JSON object and adds them to workout
     private void addExercises(Workout wo, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("exercises");
         for (Object json : jsonArray) {
@@ -79,6 +84,8 @@ public class JsonReader {
         }
     }
 
+    // EFFECTS: checks that exercise type is one of "Endurance", "Flexibility", and "Strength"
+    //          - returns the corresponding exercise type
     private Exercise chooseExercise(Workout wo, JSONObject jsonObject) {
         String exerciseType = jsonObject.getString("exerciseType");
         if (exerciseType.equals("Endurance")) {
@@ -93,6 +100,7 @@ public class JsonReader {
         }
     }
 
+    // EFFECTS: parses endurance exercise from JSON file and returns it
     private Exercise addEnduranceExercise(Workout wo, JSONObject jsonObject) {
         String name = jsonObject.getString("exerciseName");
         String exerciseType = jsonObject.getString("exerciseType");
@@ -103,6 +111,7 @@ public class JsonReader {
 
     }
 
+    // EFFECTS: parses flexibility exercise from JSON file and returns it
     private Exercise addFlexibilityExercise(Workout wo, JSONObject jsonObject) {
         String name = jsonObject.getString("exerciseName");
         String exerciseType = jsonObject.getString("exerciseType");
@@ -112,7 +121,7 @@ public class JsonReader {
         return exercise;
     }
 
-    // MODIFIES: wr
+
     // EFFECTS: parses strength exercise from JSON object and adds it to workroom
     private Exercise addStrengthExercise(Workout wo, JSONObject jsonObject) {
         String name = jsonObject.getString("exerciseName");

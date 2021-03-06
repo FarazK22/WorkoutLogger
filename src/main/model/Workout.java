@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+// Represents a workout with the date the workout was completed, a list of completed exercises,
+// a total workout duration, and the total calories burnt in the workout
+
 public class Workout implements Writable {
 
 
@@ -87,6 +90,7 @@ public class Workout implements Writable {
     }
 
 
+    // EFFECTS: converts workout object to JSON and returns it
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

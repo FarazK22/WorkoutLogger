@@ -2,6 +2,8 @@ package model.exercises;
 
 import model.exercises.Exercise;
 
+// Extends the exercise class and adds on a repetitions field to record repetitions completed in a flexibility exercise
+
 public class FlexibilityExercise extends Exercise {
 
     private String exerciseType;

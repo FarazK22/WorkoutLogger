@@ -33,5 +33,5 @@ As a user, I want to be able to:
 - categorize the different exercises I do
 - track of the intensity of my workouts via calories burnt
 - view a summary of all of my logged exercises and intensity of each
-- compare two saved workouts against each other
-- modify my saved workouts to add more exercises as needed
+- save my workouts when I'm done using the app
+- load my workout history and compare my workouts to each other

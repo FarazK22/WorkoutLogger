@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+// Represents the workout log app
+
 public class WorkoutLogApp {
 
     private static final String JSON_STORE = "./data/workouts.json";
@@ -80,6 +82,7 @@ public class WorkoutLogApp {
         }
     }
 
+    // EFFECTS: loads workout log from JSON file
     private void loadWorkout() {
         try {
             log = jsonReader.read();
@@ -89,6 +92,7 @@ public class WorkoutLogApp {
         }
     }
 
+    // EFFECTS: saves workout log to JSON file
     private void saveWorkouts() {
         try {
             jsonWriter.open();

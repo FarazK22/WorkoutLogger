@@ -7,6 +7,9 @@ import persistence.Writable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+// Represents a WorkoutLog with the name "My log", a list of workouts, the total duration of all workouts in the log,
+// and the total calories burnt through all the workouts in the log
+
 public class WorkoutLog implements Writable {
 
     protected final String name = "My log";
@@ -73,6 +76,8 @@ public class WorkoutLog implements Writable {
         return this.name;
     }
 
+
+    // EFFECTS: converts workout log to JSON object and returns it
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -85,6 +90,7 @@ public class WorkoutLog implements Writable {
 
     }
 
+    // EFFECTS: converts workouts to JSON object and returns it
     public JSONArray workoutsToJson() {
         JSONArray jsonArray = new JSONArray();
 

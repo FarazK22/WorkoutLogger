@@ -2,6 +2,9 @@ package ui;
 
 import java.io.FileNotFoundException;
 
+// Represents main class where workout log app is launched
+
+
 // EFFECTS: runs Workout Log app
 public class Main {
     public static void main(String[] args) {

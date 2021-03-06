@@ -1,5 +1,8 @@
 package model.exercises;
 
+// Represents an abstract exercise which has an exercise type, an exercise name, and the duration
+// - expanded upon in the Endurance, Flexibility, and Strength exercise classes
+
 public abstract class Exercise {
     private String exerciseType;
     protected String exerciseName;
