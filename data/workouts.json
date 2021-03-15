@@ -1,5 +1,5 @@
 {
-    "duration": 1112,
+    "duration": 1630,
     "workouts": [
         {
             "date": "02/01/2021",
@@ -41,18 +41,32 @@
             "calories": "118.9"
         },
         {
-            "date": "02/20/2021",
-            "duration": 102,
-            "exercises": [{
-                "duration": 102,
-                "exerciseName": "Bench",
-                "exerciseType": "Strength",
-                "weight": 92,
-                "repetitions": 19
-            }],
-            "calories": "7.6"
+            "date": "03/08/2021",
+            "duration": 620,
+            "exercises": [
+                {
+                    "duration": 120,
+                    "exerciseName": "Squat",
+                    "exerciseType": "Strength",
+                    "weight": 200,
+                    "repetitions": 10
+                },
+                {
+                    "duration": 300,
+                    "exerciseName": "Run",
+                    "distance": 1.5,
+                    "exerciseType": "Endurance"
+                },
+                {
+                    "duration": 200,
+                    "exerciseName": "Stretch",
+                    "exerciseType": "Flexibility",
+                    "repetitions": 25
+                }
+            ],
+            "calories": "85.2"
         }
     ],
     "name": "My log",
-    "calories": 186.70000000000002
+    "calories": 264.3
 }
