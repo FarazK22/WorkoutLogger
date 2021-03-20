@@ -1,5 +1,7 @@
 package ui.panels;
 
+import ui.GraphicalWorkoutLogApp;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,24 +27,34 @@ public class AddScreen extends JPanel {
     private final JTextField textBox4 = new JTextField(10);
     private final JTextField textBox5 = new JTextField(10);
 
-    private final JFrame parent;
+
+    private GraphicalWorkoutLogApp parent;
+
+    private JPanel buttonPanel;
+    private JPanel textBoxPanel;
 
 
     GridLayout textFieldLayout = new GridLayout(5, 2, 10, 10);
 
-    public AddScreen(JFrame frame) {
-        parent = frame;
-        setUpComponents(parent.getContentPane());
+    public AddScreen(GraphicalWorkoutLogApp parent) {
+        this.parent = parent;
+        buttonPanel = setUpSubmitButton();
+        textBoxPanel = setUpTextPanel();
 
     }
-    //JTextField has gettext (oracle)
+
+    public JPanel getButtonPanel() {
+        return buttonPanel;
+    }
+
+    public JPanel getTextBoxPanel() {
+        return textBoxPanel;
+    }
+
+    private JPanel setUpTextPanel() {
+        JPanel textBoxPanel = new JPanel();
 
 
-
-    private void setUpComponents(Container pane) {
-        final JPanel textBoxPanel = new JPanel();
-        final JPanel submitButtonPanel = new JPanel();
-        
         textBoxPanel.setLayout(textFieldLayout);
 
         textBoxPanel.add(dateBox);
@@ -55,7 +67,13 @@ public class AddScreen extends JPanel {
         textBoxPanel.add(textBox4);
         textBoxPanel.add(durBox);
         textBoxPanel.add(textBox5);
-        
+
+        return textBoxPanel;
+    }
+
+    private JPanel setUpSubmitButton() {
+        JPanel submitButtonPanel = new JPanel();
+
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -63,13 +81,13 @@ public class AddScreen extends JPanel {
                 saveFields();
             }
         });
-        
+
         submitButtonPanel.add(submitButton);
 
-        pane.add(textBoxPanel, BorderLayout.WEST);
-        pane.add(submitButtonPanel, BorderLayout.SOUTH);
-
+        return submitButtonPanel;
     }
+
+
 
     private void saveFields() {
         dateString = textBox1.getText();

@@ -1,35 +1,70 @@
 package ui.panels;
 
+import model.Workout;
+import model.WorkoutLog;
+import model.exercises.EnduranceExercise;
+import model.exercises.Exercise;
+import model.exercises.FlexibilityExercise;
+import model.exercises.StrengthExercise;
+import ui.GraphicalWorkoutLogApp;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ViewScreen extends JPanel {
 
     private final JLabel viewBoxLabel = new JLabel("Your log: ");
-    private final JTextArea textArea = new JTextArea(10, 20);
 
-    private JFrame parent;
+    private GraphicalWorkoutLogApp parent;
+    private JTextArea jt;
+    private WorkoutLog log;
 
-    public ViewScreen(JFrame frame) {
-        parent = frame;
-        setUpComponents(parent.getContentPane());
+    private JPanel textAreaPanel;
+    private JPanel textPanel;
+
+
+
+    public ViewScreen(GraphicalWorkoutLogApp parent) {
+        this.parent = parent;
+        this.log = parent.getLog();
+        textAreaPanel = setUpTextAreaPanel();
+        textPanel = setUpTextPanel();
+
     }
 
-    private void setUpComponents(Container pane) {
-        final JPanel textAreaPanel = new JPanel();
-        final JScrollPane scrollPane = new JScrollPane(textArea);
+    public JPanel getTextAreaPanel() {
+        return textAreaPanel;
+    }
 
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridwidth = GridBagConstraints.REMAINDER;
-        c.fill = GridBagConstraints.HORIZONTAL;
+    public JPanel getTextPanel() {
+        return textPanel;
+    }
 
-        textArea.setEditable(false);
+    private JPanel setUpTextAreaPanel() {
+        JPanel textAreaPanel = new JPanel();
+        JScrollPane scrollPane = new JScrollPane(jt);
 
-        textAreaPanel.add(viewBoxLabel);
-        textAreaPanel.add(textArea, c);
-        textAreaPanel.add(scrollPane, c);
+        jt = new JTextArea(15, 28);
+        jt.setEditable(false);
+        printWorkouts(jt);
 
-        pane.add(textAreaPanel);
+        textAreaPanel.add(jt);
 
+        return textAreaPanel;
+    }
+
+    private JPanel setUpTextPanel() {
+        JPanel textPanel = new JPanel();
+
+        textPanel.add(viewBoxLabel);
+
+        return textPanel;
+
+    }
+
+
+    private void printWorkouts(JTextArea jt) {
+        String logText = this.log.printWorkouts();
+        jt.append(logText);
     }
 }

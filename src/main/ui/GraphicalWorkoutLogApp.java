@@ -16,7 +16,7 @@ public class GraphicalWorkoutLogApp extends JFrame {
 
     private JFrame homeFrame = new JFrame("Workout Log");
     public static final int WIDTH = 500;
-    public static final int HEIGHT = 250;
+    public static final int HEIGHT = 350;
 
     private static final String JSON_STORE = "./data/workouts.json";
     private JsonWriter jsonWriter;
@@ -39,21 +39,69 @@ public class GraphicalWorkoutLogApp extends JFrame {
 
     private void initializeFields() {
         log = new WorkoutLog();
-        viewPanel = new ViewScreen(homeFrame);
+        viewPanel = new ViewScreen(this);
+        addPanel = new AddScreen(this);
+        homePanel = new HomeScreen(this);
+        homePanel.setOpaque(true);
     }
 
     private void initializeFrame() {
         homeFrame.setSize(new Dimension(WIDTH, HEIGHT));
         homeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        homeFrame.add(viewPanel);
+        initializeHome();
         homeFrame.setVisible(true);
     }
 
 
-    private void viewLog() {
+    private void initializeHome() {
+        JPanel homeScreen = new JPanel();
+        JPanel buttonPanel = homePanel.getButtonPanel();
+        JPanel welcomePanel = homePanel.getWelcomePanel();
+
+        homeScreen.add(buttonPanel, BorderLayout.NORTH);
+        homeScreen.add(welcomePanel, BorderLayout.WEST);
+
+        homeFrame.setContentPane(homeScreen);
+        homeFrame.pack();
     }
 
-    private void addWorkout() {
+    public void viewLog() {
+        JPanel viewScreen = initializeViewScreen();
+        homeFrame.setContentPane(viewScreen);
+        homeFrame.revalidate();
+        homeFrame.repaint();
+        homeFrame.pack();
+
+    }
+
+    private JPanel initializeViewScreen() {
+        JPanel viewScreen = new JPanel();
+        JPanel textAreaPanel = viewPanel.getTextAreaPanel();
+        JPanel textPanel = viewPanel.getTextPanel();
+
+        viewScreen.add(textAreaPanel, BorderLayout.SOUTH);
+        viewScreen.add(textPanel, BorderLayout.NORTH);
+
+        return viewScreen;
+    }
+
+    public void addWorkoutScreen() {
+        JPanel addScreen = initializeAddScreen();
+        homeFrame.setContentPane(addScreen);
+        homeFrame.revalidate();
+        homeFrame.repaint();
+        homeFrame.pack();
+    }
+
+    private JPanel initializeAddScreen() {
+        JPanel addScreen = new JPanel();
+        JPanel buttonPanel = addPanel.getButtonPanel();
+        JPanel textPanel = addPanel.getTextBoxPanel();
+
+        addScreen.add(textPanel, BorderLayout.WEST);
+        addScreen.add(buttonPanel, BorderLayout.SOUTH);
+
+        return addScreen;
 
     }
 
@@ -78,7 +126,11 @@ public class GraphicalWorkoutLogApp extends JFrame {
         }
     }
 
-    private WorkoutLog getLog() {
+    public WorkoutLog getLog() {
         return log;
+    }
+
+    public JFrame getFrame() {
+        return homeFrame;
     }
 }

@@ -1,5 +1,7 @@
 package ui.panels;
 
+import ui.GraphicalWorkoutLogApp;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,32 +9,50 @@ import java.awt.event.ActionListener;
 
 public class HomeScreen extends JPanel {
 
-    private JFrame parent;
+    private GraphicalWorkoutLogApp parent;
+
+    private JPanel buttonPanel;
+    private JPanel welcomePanel;
+
 
     GridLayout buttonLayout = new GridLayout(5, 1, 10, 10);
 
-    public HomeScreen(JFrame frame) {
-        parent = frame;
-        setUpComponents(parent.getContentPane());
+    public HomeScreen(GraphicalWorkoutLogApp parent) {
+        this.parent = parent;
+        buttonPanel = setUpHomeButtons();
+        welcomePanel = setUpHomeWelcome();
 
     }
 
-    public void setUpComponents(Container pane) {
-        final JPanel buttonPanel = new JPanel();
-        final JPanel welcomeBox = new JPanel();
-        buttonPanel.setLayout(buttonLayout);
+    public JPanel getButtonPanel() {
+        return buttonPanel;
+    }
 
-        addButton("Start workout", buttonPanel);
-        addButton("View your log", buttonPanel);
-        addButton("Load workouts", buttonPanel);
-        addButton("Save workouts", buttonPanel);
-        addButton("Quit", buttonPanel);
+    public JPanel getWelcomePanel() {
+        return welcomePanel;
+    }
 
-        JLabel welcome = new JLabel("Welcome to your workout log! Please select an option above.");
+    private JPanel setUpHomeWelcome() {
+        JPanel welcomeBox = new JPanel();
+        JLabel welcome = new JLabel("Welcome to your workout log! Please select an option.");
         welcomeBox.add(welcome);
 
-        pane.add(buttonPanel, BorderLayout.NORTH);
-        pane.add(welcomeBox, BorderLayout.SOUTH);
+        return welcomeBox;
+    }
+
+    public JPanel setUpHomeButtons() {
+        JPanel buttonBox = new JPanel();
+
+        buttonBox.setLayout(buttonLayout);
+
+        addButton("Start workout", buttonBox);
+        addButton("View your log", buttonBox);
+        addButton("Load workouts", buttonBox);
+        addButton("Save workouts", buttonBox);
+        addButton("Quit", buttonBox);
+
+        return buttonBox;
+
 
     }
 
@@ -42,14 +62,14 @@ public class HomeScreen extends JPanel {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //addWorkout();
+                    parent.addWorkoutScreen();
                 }
             });
         } else if (text.equals("View your log")) {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //viewLog();
+                    parent.viewLog();
                 }
 
             });
