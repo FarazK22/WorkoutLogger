@@ -1,9 +1,12 @@
 package ui;
 
+import model.Workout;
 import model.WorkoutLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.panels.AddScreen;
+import ui.panels.AddScreens.AddEnduranceScreen;
+import ui.panels.AddScreens.AddFlexibilityScreen;
+import ui.panels.AddScreens.AddStrengthScreen;
 import ui.panels.HomeScreen;
 import ui.panels.ViewScreen;
 
@@ -26,7 +29,9 @@ public class GraphicalWorkoutLogApp extends JFrame {
 
 
     private HomeScreen homePanel;
-    private AddScreen addPanel;
+    private AddEnduranceScreen endurancePanel;
+    private AddFlexibilityScreen flexibilityPanel;
+    private AddStrengthScreen strengthPanel;
     private ViewScreen viewPanel;
 
 
@@ -40,7 +45,9 @@ public class GraphicalWorkoutLogApp extends JFrame {
     private void initializeFields() {
         log = new WorkoutLog();
         viewPanel = new ViewScreen(this);
-        addPanel = new AddScreen(this);
+        endurancePanel = new AddEnduranceScreen(this);
+        flexibilityPanel = new AddFlexibilityScreen(this);
+        strengthPanel = new AddStrengthScreen(this);
         homePanel = new HomeScreen(this);
         homePanel.setOpaque(true);
     }
@@ -86,24 +93,48 @@ public class GraphicalWorkoutLogApp extends JFrame {
     }
 
     public void addWorkoutScreen() {
-        JPanel addScreen = initializeAddScreen();
+        Object[] possibilities = {"Endurance", "Flexibility", "Strength"};
+        String exerciseType = (String)JOptionPane.showInputDialog(
+                homeFrame,
+                "Enter your workout type",
+                "Exercise Type",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                possibilities,
+                "Endurance");
+
+        JPanel addScreen = initializeAddScreen(exerciseType);
         homeFrame.setContentPane(addScreen);
         homeFrame.revalidate();
         homeFrame.repaint();
         homeFrame.pack();
     }
 
-    private JPanel initializeAddScreen() {
+    private JPanel initializeAddScreen(String exerciseType) {
+        JPanel addPanel = null;
+        if (exerciseType.equals("Strength")) {
+            addPanel = getAddPanel(strengthPanel.getButtonPanel(), strengthPanel.getTextBoxPanel());
+        } else if (exerciseType.equals("Endurance")) {
+            addPanel = getAddPanel(endurancePanel.getButtonPanel(), endurancePanel.getTextBoxPanel());
+        } else if (exerciseType.equals("Flexibility")) {
+            addPanel = getAddPanel(flexibilityPanel.getButtonPanel(), flexibilityPanel.getTextBoxPanel());
+        }
+        return addPanel;
+    }
+
+    private JPanel getAddPanel(JPanel buttonPanel2, JPanel textBoxPanel) {
         JPanel addScreen = new JPanel();
-        JPanel buttonPanel = addPanel.getButtonPanel();
-        JPanel textPanel = addPanel.getTextBoxPanel();
+        JPanel buttonPanel = buttonPanel2;
+        JPanel textPanel = textBoxPanel;
 
         addScreen.add(textPanel, BorderLayout.WEST);
         addScreen.add(buttonPanel, BorderLayout.SOUTH);
 
         return addScreen;
-
     }
+
+
+
 
     private void loadWorkouts() {
         try {
@@ -132,5 +163,8 @@ public class GraphicalWorkoutLogApp extends JFrame {
 
     public JFrame getFrame() {
         return homeFrame;
+    }
+
+    public void addExercise(String exerciseType) {
     }
 }

@@ -1,25 +1,20 @@
-package ui.panels;
+package ui.panels.AddScreens;
 
 import ui.GraphicalWorkoutLogApp;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddScreen extends JPanel {
+public class AddStrengthScreen extends AddScreen {
 
-    private String dateString;
-    private String nameString;
+    private String exerciseType = "Strength";
+
     private String weightString;
     private String repString;
-    private String durString;
 
-    private final JLabel dateBox = new JLabel("Enter the workout date (MM/DD/YYYY):");
-    private final JLabel nameBox = new JLabel("Enter the name of the exercise:");
     private final JLabel weightBox = new JLabel("Enter the weight lifted:");
     private final JLabel repBox = new JLabel("Enter the repetitions completed:");
-    private final JLabel durBox = new JLabel("Enter the duration of the exercise:");
 
     private final JTextField textBox1 = new JTextField(10);
     private final JTextField textBox2 = new JTextField(10);
@@ -30,25 +25,12 @@ public class AddScreen extends JPanel {
 
     private GraphicalWorkoutLogApp parent;
 
-    private JPanel buttonPanel;
-    private JPanel textBoxPanel;
 
-
-    GridLayout textFieldLayout = new GridLayout(5, 2, 10, 10);
-
-    public AddScreen(GraphicalWorkoutLogApp parent) {
-        this.parent = parent;
+    public AddStrengthScreen(GraphicalWorkoutLogApp parent) {
+        super(parent);
         buttonPanel = setUpSubmitButton();
         textBoxPanel = setUpTextPanel();
 
-    }
-
-    public JPanel getButtonPanel() {
-        return buttonPanel;
-    }
-
-    public JPanel getTextBoxPanel() {
-        return textBoxPanel;
     }
 
     private JPanel setUpTextPanel() {
@@ -88,7 +70,6 @@ public class AddScreen extends JPanel {
     }
 
 
-
     private void saveFields() {
         dateString = textBox1.getText();
         nameString = textBox2.getText();
@@ -99,5 +80,17 @@ public class AddScreen extends JPanel {
         JOptionPane.showMessageDialog(this,
                 "Success.");
 
+    }
+
+    public String getWeightString() {
+        return weightString;
+    }
+
+    public String getRepString() {
+        return repString;
+    }
+
+    public String getExerciseType() {
+        return exerciseType;
     }
 }
