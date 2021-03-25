@@ -1,6 +1,9 @@
-package ui.panels.AddScreens;
+package ui.panels;
 
+import model.Workout;
+import model.exercises.FlexibilityExercise;
 import ui.GraphicalWorkoutLogApp;
+import ui.panels.AddScreen;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,21 +13,24 @@ public class AddFlexibilityScreen extends AddScreen {
 
     private String exerciseType = "Flexibility";
 
-    private String repString;
+    private FlexibilityExercise exercise;
+
+    private Integer reps;
 
     private final JLabel repBox = new JLabel("Enter the repetitions completed:");
 
-    private final JTextField textBox1 = new JTextField(10);
+
     private final JTextField textBox2 = new JTextField(10);
     private final JTextField textBox3 = new JTextField(10);
     private final JTextField textBox4 = new JTextField(10);
 
-    private GraphicalWorkoutLogApp parent;
+    private JFrame homeFrame;
 
     public AddFlexibilityScreen(GraphicalWorkoutLogApp parent) {
         super(parent);
         buttonPanel = setUpSubmitButton();
         textBoxPanel = setUpTextPanel();
+        homeFrame = parent.getFrame();
     }
 
     private JPanel setUpTextPanel() {
@@ -33,8 +39,7 @@ public class AddFlexibilityScreen extends AddScreen {
 
         textBoxPanel.setLayout(textFieldLayout);
 
-        textBoxPanel.add(dateBox);
-        textBoxPanel.add(textBox1);
+
         textBoxPanel.add(nameBox);
         textBoxPanel.add(textBox2);
         textBoxPanel.add(repBox);
@@ -52,7 +57,7 @@ public class AddFlexibilityScreen extends AddScreen {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.addExercise("Flexibility");
+                saveFields();
             }
         });
 
@@ -62,21 +67,22 @@ public class AddFlexibilityScreen extends AddScreen {
     }
 
     private void saveFields() {
-        dateString = textBox1.getText();
         nameString = textBox2.getText();
-        repString = textBox3.getText();
-        durString = textBox4.getText();
+        reps = Integer.parseInt(textBox3.getText());
+        dur = Integer.parseInt(textBox4.getText());
 
-        JOptionPane.showMessageDialog(this,
-                "Success.");
+        exercise = new FlexibilityExercise(nameString, exerciseType, dur, reps);
+
+        Workout workout = parent.getActiveWorkout();
+        workout.addExercise(exercise);
+
+        parent.continueOption();
 
     }
+
 
     public String getExerciseType() {
         return exerciseType;
     }
 
-    public String getRepString() {
-        return repString;
-    }
 }

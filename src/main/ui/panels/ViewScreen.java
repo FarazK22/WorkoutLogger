@@ -10,6 +10,8 @@ import ui.GraphicalWorkoutLogApp;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ViewScreen extends JPanel {
 
@@ -21,6 +23,7 @@ public class ViewScreen extends JPanel {
 
     private JPanel textAreaPanel;
     private JPanel textPanel;
+    private JPanel backButtonPanel;
 
 
 
@@ -29,7 +32,27 @@ public class ViewScreen extends JPanel {
         this.log = parent.getLog();
         textAreaPanel = setUpTextAreaPanel();
         textPanel = setUpTextPanel();
+        backButtonPanel = setUpBackButton();
 
+    }
+
+    private JPanel setUpBackButton() {
+        JPanel buttonPanel = new JPanel();
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.initializeHome();
+            }
+        });
+
+        buttonPanel.add(backButton);
+
+        return buttonPanel;
+    }
+
+    public JPanel getBackButtonPanel() {
+        return backButtonPanel;
     }
 
     public JPanel getTextAreaPanel() {
@@ -42,7 +65,9 @@ public class ViewScreen extends JPanel {
 
     private JPanel setUpTextAreaPanel() {
         JPanel textAreaPanel = new JPanel();
+
         JScrollPane scrollPane = new JScrollPane(jt);
+
 
         jt = new JTextArea(15, 28);
         jt.setEditable(false);

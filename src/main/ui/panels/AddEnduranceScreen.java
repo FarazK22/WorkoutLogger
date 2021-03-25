@@ -1,36 +1,34 @@
-package ui.panels.AddScreens;
+package ui.panels;
 
+import model.Workout;
+import model.exercises.EnduranceExercise;
 import ui.GraphicalWorkoutLogApp;
+import ui.panels.AddScreen;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddStrengthScreen extends AddScreen {
+public class AddEnduranceScreen extends AddScreen {
 
-    private String exerciseType = "Strength";
+    private String exerciseType = "Endurance";
 
-    private String weightString;
-    private String repString;
+    private Double distance;
 
-    private final JLabel weightBox = new JLabel("Enter the weight lifted:");
-    private final JLabel repBox = new JLabel("Enter the repetitions completed:");
+    private final JLabel distanceBox = new JLabel("Enter the distance travelled (in km):");
 
-    private final JTextField textBox1 = new JTextField(10);
+
     private final JTextField textBox2 = new JTextField(10);
     private final JTextField textBox3 = new JTextField(10);
     private final JTextField textBox4 = new JTextField(10);
-    private final JTextField textBox5 = new JTextField(10);
 
+    private JFrame homeFrame;
 
-    private GraphicalWorkoutLogApp parent;
-
-
-    public AddStrengthScreen(GraphicalWorkoutLogApp parent) {
+    public AddEnduranceScreen(GraphicalWorkoutLogApp parent) {
         super(parent);
         buttonPanel = setUpSubmitButton();
         textBoxPanel = setUpTextPanel();
-
+        homeFrame = parent.getFrame();
     }
 
     private JPanel setUpTextPanel() {
@@ -39,16 +37,13 @@ public class AddStrengthScreen extends AddScreen {
 
         textBoxPanel.setLayout(textFieldLayout);
 
-        textBoxPanel.add(dateBox);
-        textBoxPanel.add(textBox1);
+
         textBoxPanel.add(nameBox);
         textBoxPanel.add(textBox2);
-        textBoxPanel.add(weightBox);
+        textBoxPanel.add(distanceBox);
         textBoxPanel.add(textBox3);
-        textBoxPanel.add(repBox);
-        textBoxPanel.add(textBox4);
         textBoxPanel.add(durBox);
-        textBoxPanel.add(textBox5);
+        textBoxPanel.add(textBox4);
 
         return textBoxPanel;
     }
@@ -69,25 +64,18 @@ public class AddStrengthScreen extends AddScreen {
         return submitButtonPanel;
     }
 
-
     private void saveFields() {
-        dateString = textBox1.getText();
         nameString = textBox2.getText();
-        weightString = textBox3.getText();
-        repString = textBox4.getText();
-        durString = textBox5.getText();
+        distance = Double.parseDouble(textBox3.getText());
+        dur = Integer.parseInt(textBox4.getText());
+        EnduranceExercise exercise = new EnduranceExercise(nameString, "Endurance", dur, distance);
 
-        JOptionPane.showMessageDialog(this,
-                "Success.");
+        Workout workout = parent.getActiveWorkout();
+        workout.addExercise(exercise);
 
-    }
 
-    public String getWeightString() {
-        return weightString;
-    }
+        parent.continueOption();
 
-    public String getRepString() {
-        return repString;
     }
 
     public String getExerciseType() {

@@ -4,9 +4,9 @@ import model.Workout;
 import model.WorkoutLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.panels.AddScreens.AddEnduranceScreen;
-import ui.panels.AddScreens.AddFlexibilityScreen;
-import ui.panels.AddScreens.AddStrengthScreen;
+import ui.panels.AddEnduranceScreen;
+import ui.panels.AddFlexibilityScreen;
+import ui.panels.AddStrengthScreen;
 import ui.panels.HomeScreen;
 import ui.panels.ViewScreen;
 
@@ -27,12 +27,14 @@ public class GraphicalWorkoutLogApp extends JFrame {
 
     private WorkoutLog log;
 
+    private Workout activeWorkout;
 
-    private HomeScreen homePanel;
+
+
     private AddEnduranceScreen endurancePanel;
     private AddFlexibilityScreen flexibilityPanel;
     private AddStrengthScreen strengthPanel;
-    private ViewScreen viewPanel;
+
 
 
     public GraphicalWorkoutLogApp() throws FileNotFoundException {
@@ -44,12 +46,9 @@ public class GraphicalWorkoutLogApp extends JFrame {
 
     private void initializeFields() {
         log = new WorkoutLog();
-        viewPanel = new ViewScreen(this);
         endurancePanel = new AddEnduranceScreen(this);
         flexibilityPanel = new AddFlexibilityScreen(this);
         strengthPanel = new AddStrengthScreen(this);
-        homePanel = new HomeScreen(this);
-        homePanel.setOpaque(true);
     }
 
     private void initializeFrame() {
@@ -59,8 +58,10 @@ public class GraphicalWorkoutLogApp extends JFrame {
         homeFrame.setVisible(true);
     }
 
+    public void initializeHome() {
+        HomeScreen homePanel;
+        homePanel = new HomeScreen(this);
 
-    private void initializeHome() {
         JPanel homeScreen = new JPanel();
         JPanel buttonPanel = homePanel.getButtonPanel();
         JPanel welcomePanel = homePanel.getWelcomePanel();
@@ -82,19 +83,39 @@ public class GraphicalWorkoutLogApp extends JFrame {
     }
 
     private JPanel initializeViewScreen() {
+        ViewScreen viewPanel;
+        viewPanel = new ViewScreen(this);
+
         JPanel viewScreen = new JPanel();
         JPanel textAreaPanel = viewPanel.getTextAreaPanel();
         JPanel textPanel = viewPanel.getTextPanel();
+        JPanel backButtonPanel = viewPanel.getBackButtonPanel();
 
-        viewScreen.add(textAreaPanel, BorderLayout.SOUTH);
-        viewScreen.add(textPanel, BorderLayout.NORTH);
+        viewScreen.add(textAreaPanel, BorderLayout.WEST);
+        viewScreen.add(textPanel, BorderLayout.WEST);
+        viewScreen.add(backButtonPanel, BorderLayout.SOUTH);
 
         return viewScreen;
     }
 
-    public void addWorkoutScreen() {
+    public void startNewWorkout() {
+        String workoutDate = (String) JOptionPane.showInputDialog(
+                homeFrame,
+                "Enter today's date (MM/DD/YYYY)",
+                "Workout Date",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                "MM/DD/YYYY");
+        Workout newWorkout = new Workout(workoutDate);
+        this.activeWorkout = newWorkout;
+
+        setExerciseScreenType();
+    }
+
+    private void setExerciseScreenType() {
         Object[] possibilities = {"Endurance", "Flexibility", "Strength"};
-        String exerciseType = (String)JOptionPane.showInputDialog(
+        String exerciseType = (String) JOptionPane.showInputDialog(
                 homeFrame,
                 "Enter your workout type",
                 "Exercise Type",
@@ -104,10 +125,38 @@ public class GraphicalWorkoutLogApp extends JFrame {
                 "Endurance");
 
         JPanel addScreen = initializeAddScreen(exerciseType);
+        setAddScreen(addScreen);
+    }
+
+    public Workout getActiveWorkout() {
+        return activeWorkout;
+    }
+
+    private void setAddScreen(JPanel addScreen) {
         homeFrame.setContentPane(addScreen);
         homeFrame.revalidate();
         homeFrame.repaint();
         homeFrame.pack();
+    }
+
+    public void continueOption() {
+
+        int n = JOptionPane.showConfirmDialog(
+                homeFrame,
+                "Success! Your exercise was successfully added. Would you like to add another?",
+                "Exercise Added",
+                JOptionPane.YES_NO_OPTION);
+
+        if (n == 0) {
+            setExerciseScreenType();
+        } else if (n == 1) {
+            updateLog();
+        }
+    }
+
+    private void updateLog() {
+        log.addWorkout(activeWorkout);
+        initializeHome();
     }
 
     private JPanel initializeAddScreen(String exerciseType) {
@@ -134,9 +183,7 @@ public class GraphicalWorkoutLogApp extends JFrame {
     }
 
 
-
-
-    private void loadWorkouts() {
+    public void loadWorkouts() {
         try {
             log = jsonReader.read();
         } catch (IOException e) {
@@ -146,7 +193,7 @@ public class GraphicalWorkoutLogApp extends JFrame {
         }
     }
 
-    private void saveWorkouts() {
+    public void saveWorkouts() {
         try {
             jsonWriter.open();
             jsonWriter.write(log);
@@ -165,6 +212,4 @@ public class GraphicalWorkoutLogApp extends JFrame {
         return homeFrame;
     }
 
-    public void addExercise(String exerciseType) {
-    }
 }
