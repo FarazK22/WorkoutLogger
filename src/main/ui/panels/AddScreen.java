@@ -6,6 +6,8 @@ import ui.GraphicalWorkoutLogApp;
 import javax.swing.*;
 import java.awt.*;
 
+// Represents the abstract behaviour for all add exercise screens
+
 public abstract class AddScreen extends JPanel {
 
     protected final JLabel nameBox = new JLabel("Enter the name of the exercise:");
@@ -23,16 +25,16 @@ public abstract class AddScreen extends JPanel {
 
     protected WorkoutLog log;
 
+    // MODIFIES: this
+    // EFFECTS: initializes a new add screen with a parent (GUI) and empty workout log
     public AddScreen(GraphicalWorkoutLogApp parent) {
         this.parent = parent;
         this.log = parent.getLog();
     }
 
 
-    public String getNameString() {
-        return nameString;
-    }
 
+    // GETTERS
     public Integer getDur() {
         return dur;
     }

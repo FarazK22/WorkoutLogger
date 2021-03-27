@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents the components of the view log screen on the workout log app
+
 public class ViewScreen extends JPanel {
 
     private final JLabel viewBoxLabel = new JLabel("Your log: ");
@@ -25,8 +27,9 @@ public class ViewScreen extends JPanel {
     private JPanel textPanel;
     private JPanel backButtonPanel;
 
-
-
+    // MODIFIES: this
+    // EFFECTS: initializes a view screen with a parent (GUI), the GUI's workout log, a text panel,
+    //          text area panel, and back button panel
     public ViewScreen(GraphicalWorkoutLogApp parent) {
         this.parent = parent;
         this.log = parent.getLog();
@@ -36,6 +39,7 @@ public class ViewScreen extends JPanel {
 
     }
 
+    // EFFECTS: returns a JPanel object representing the back button
     private JPanel setUpBackButton() {
         JPanel buttonPanel = new JPanel();
         JButton backButton = new JButton("Back");
@@ -51,18 +55,7 @@ public class ViewScreen extends JPanel {
         return buttonPanel;
     }
 
-    public JPanel getBackButtonPanel() {
-        return backButtonPanel;
-    }
-
-    public JPanel getTextAreaPanel() {
-        return textAreaPanel;
-    }
-
-    public JPanel getTextPanel() {
-        return textPanel;
-    }
-
+    // EFFECTS: returns a JPanel object representing the text area
     private JPanel setUpTextAreaPanel() {
         JPanel textAreaPanel = new JPanel();
 
@@ -78,6 +71,7 @@ public class ViewScreen extends JPanel {
         return textAreaPanel;
     }
 
+    // EFFECTS: returns a JPanel object representing the text to be displayed
     private JPanel setUpTextPanel() {
         JPanel textPanel = new JPanel();
 
@@ -88,8 +82,27 @@ public class ViewScreen extends JPanel {
     }
 
 
+
+    // MODIFIES: jt
+    // EFFECTS: prints the workout log onto the text area
     private void printWorkouts(JTextArea jt) {
         String logText = this.log.printWorkouts();
         jt.append(logText);
     }
+
+
+    // GETTERS
+
+    public JPanel getBackButtonPanel() {
+        return backButtonPanel;
+    }
+
+    public JPanel getTextAreaPanel() {
+        return textAreaPanel;
+    }
+
+    public JPanel getTextPanel() {
+        return textPanel;
+    }
+
 }

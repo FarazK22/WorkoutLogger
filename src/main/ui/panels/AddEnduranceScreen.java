@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents the components of the add endurance exercise screen on the workout log app
+
 public class AddEnduranceScreen extends AddScreen {
 
     private String exerciseType = "Endurance";
@@ -24,6 +26,9 @@ public class AddEnduranceScreen extends AddScreen {
 
     private JFrame homeFrame;
 
+    // MODIFIES: this
+    // EFFECTS: instantiates an endurance screen with the parent (GUI), a new button panel, text box panel, and the
+    //          JFrame (homeFrame)
     public AddEnduranceScreen(GraphicalWorkoutLogApp parent) {
         super(parent);
         buttonPanel = setUpSubmitButton();
@@ -31,6 +36,7 @@ public class AddEnduranceScreen extends AddScreen {
         homeFrame = parent.getFrame();
     }
 
+    // EFFECTS: Returns a JPanel object representing the text entry boxes
     private JPanel setUpTextPanel() {
         JPanel textBoxPanel = new JPanel();
 
@@ -48,6 +54,7 @@ public class AddEnduranceScreen extends AddScreen {
         return textBoxPanel;
     }
 
+    // EFFECTS: Returns a JPanel object representing the submit button
     private JPanel setUpSubmitButton() {
         JPanel submitButtonPanel = new JPanel();
 
@@ -64,6 +71,8 @@ public class AddEnduranceScreen extends AddScreen {
         return submitButtonPanel;
     }
 
+    // MODIFIES: workout
+    // EFFECTS: Takes text inputs and creates a new exercise with information, adds exercise t
     private void saveFields() {
         nameString = textBox2.getText();
         distance = Double.parseDouble(textBox3.getText());
@@ -77,6 +86,8 @@ public class AddEnduranceScreen extends AddScreen {
         parent.continueOption();
 
     }
+
+    // GETTER
 
     public String getExerciseType() {
         return exerciseType;

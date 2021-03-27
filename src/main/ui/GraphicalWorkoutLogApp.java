@@ -10,10 +10,16 @@ import ui.panels.AddStrengthScreen;
 import ui.panels.HomeScreen;
 import ui.panels.ViewScreen;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+// Represents the GUI for the Workout Log app
 
 public class GraphicalWorkoutLogApp extends JFrame {
 
@@ -30,13 +36,17 @@ public class GraphicalWorkoutLogApp extends JFrame {
     private Workout activeWorkout;
 
 
-
     private AddEnduranceScreen endurancePanel;
     private AddFlexibilityScreen flexibilityPanel;
     private AddStrengthScreen strengthPanel;
 
 
-
+    // MODIFIES: this
+    // EFFECTS: Initializes the graphical workout log app which includes:
+    //          - the JSON writer
+    //          - the JSON reader
+    //          - the class fields
+    //          - the size of the frame
     public GraphicalWorkoutLogApp() throws FileNotFoundException {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -44,6 +54,8 @@ public class GraphicalWorkoutLogApp extends JFrame {
         initializeFrame();
     }
 
+    // MODIFIES: this
+    // EFFECTS: instantiates a new workout log and the three different exercise panels
     private void initializeFields() {
         log = new WorkoutLog();
         endurancePanel = new AddEnduranceScreen(this);
@@ -51,6 +63,8 @@ public class GraphicalWorkoutLogApp extends JFrame {
         strengthPanel = new AddStrengthScreen(this);
     }
 
+    // MODIFIES: homeFrame
+    // EFFECTS: sets the size and default close operation for the homeFrame, calls initializeHome to set home screen
     private void initializeFrame() {
         homeFrame.setSize(new Dimension(WIDTH, HEIGHT));
         homeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,6 +72,8 @@ public class GraphicalWorkoutLogApp extends JFrame {
         homeFrame.setVisible(true);
     }
 
+    // MODIFIES: homeFrame
+    // EFFECTS: sets up home screen with JPanel components from HomeScreen class
     public void initializeHome() {
         HomeScreen homePanel;
         homePanel = new HomeScreen(this);
@@ -73,6 +89,8 @@ public class GraphicalWorkoutLogApp extends JFrame {
         homeFrame.pack();
     }
 
+    // MODIFIES: homeFrame
+    // EFFECTS: wipes home screen and displays view screen
     public void viewLog() {
         JPanel viewScreen = initializeViewScreen();
         homeFrame.setContentPane(viewScreen);
@@ -82,6 +100,7 @@ public class GraphicalWorkoutLogApp extends JFrame {
 
     }
 
+    // EFFECTS: retrieves JPanel components from ViewScreen and returns screen to be added to homeFrame
     private JPanel initializeViewScreen() {
         ViewScreen viewPanel;
         viewPanel = new ViewScreen(this);
@@ -98,6 +117,8 @@ public class GraphicalWorkoutLogApp extends JFrame {
         return viewScreen;
     }
 
+    // MODIFIES: this
+    // EFFECTS: Instantiates new workout and prompts user to input workout date
     public void startNewWorkout() {
         String workoutDate = (String) JOptionPane.showInputDialog(
                 homeFrame,
@@ -113,6 +134,7 @@ public class GraphicalWorkoutLogApp extends JFrame {
         setExerciseScreenType();
     }
 
+    // EFFECTS: prompts user for exercise type
     private void setExerciseScreenType() {
         Object[] possibilities = {"Endurance", "Flexibility", "Strength"};
         String exerciseType = (String) JOptionPane.showInputDialog(
@@ -128,10 +150,9 @@ public class GraphicalWorkoutLogApp extends JFrame {
         setAddScreen(addScreen);
     }
 
-    public Workout getActiveWorkout() {
-        return activeWorkout;
-    }
 
+    // MODIFIES: this
+    // EFFECTS: sets frame to exercise adding screen
     private void setAddScreen(JPanel addScreen) {
         homeFrame.setContentPane(addScreen);
         homeFrame.revalidate();
@@ -139,8 +160,10 @@ public class GraphicalWorkoutLogApp extends JFrame {
         homeFrame.pack();
     }
 
+    // EFFECTS: prompts user for input on whether or not to continue adding exercises
+    // if user says yes, prompts them to choose exercise type, else updates log
     public void continueOption() {
-
+        playSound("success.wav");
         int n = JOptionPane.showConfirmDialog(
                 homeFrame,
                 "Success! Your exercise was successfully added. Would you like to add another?",
@@ -154,11 +177,14 @@ public class GraphicalWorkoutLogApp extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates workout log with active workout and initializes home screen with updated info
     private void updateLog() {
         log.addWorkout(activeWorkout);
         initializeHome();
     }
 
+    // EFFECTS: uses user selection for exercise type to determine proper exercise screen to return for display
     private JPanel initializeAddScreen(String exerciseType) {
         JPanel addPanel = null;
         if (exerciseType.equals("Strength")) {
@@ -171,6 +197,7 @@ public class GraphicalWorkoutLogApp extends JFrame {
         return addPanel;
     }
 
+    // EFFECTS: retrieves JPanel components from exercise screen class and returns them
     private JPanel getAddPanel(JPanel buttonPanel2, JPanel textBoxPanel) {
         JPanel addScreen = new JPanel();
         JPanel buttonPanel = buttonPanel2;
@@ -182,10 +209,13 @@ public class GraphicalWorkoutLogApp extends JFrame {
         return addScreen;
     }
 
-
+    // EFFECTS: loads workouts from JSON file
     public void loadWorkouts() {
         try {
             log = jsonReader.read();
+            playSound("loaded.wav");
+            JOptionPane.showMessageDialog(homeFrame,
+                    "Successfully loaded workouts!");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(homeFrame, "Unable to read from file: " + JSON_STORE,
                     "Load error",
@@ -193,16 +223,35 @@ public class GraphicalWorkoutLogApp extends JFrame {
         }
     }
 
+    // EFFECTS: saves workouts to JSON file
     public void saveWorkouts() {
         try {
             jsonWriter.open();
             jsonWriter.write(log);
             jsonWriter.close();
+            playSound("success.wav");
+            JOptionPane.showMessageDialog(homeFrame,
+                    "Successfully saved workouts!");
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(homeFrame, "Unable to write to file: " + JSON_STORE, "Save error",
                     JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    // EFFECTS: retrieves audio file to play
+    public void playSound(String soundName) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
+
+    // GETTERS
 
     public WorkoutLog getLog() {
         return log;
@@ -210,6 +259,10 @@ public class GraphicalWorkoutLogApp extends JFrame {
 
     public JFrame getFrame() {
         return homeFrame;
+    }
+
+    public Workout getActiveWorkout() {
+        return activeWorkout;
     }
 
 }

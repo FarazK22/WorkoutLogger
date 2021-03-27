@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+// Represents the components of the add flexibility exercise screen on the workout log app
+
 public class AddFlexibilityScreen extends AddScreen {
 
     private String exerciseType = "Flexibility";
@@ -26,6 +29,9 @@ public class AddFlexibilityScreen extends AddScreen {
 
     private JFrame homeFrame;
 
+    // MODIFIES: this
+    // EFFECTS: instantiates a strength screen with the parent (GUI), a new button panel, text box panel, and the
+    //          JFrame (homeFrame)
     public AddFlexibilityScreen(GraphicalWorkoutLogApp parent) {
         super(parent);
         buttonPanel = setUpSubmitButton();
@@ -33,6 +39,7 @@ public class AddFlexibilityScreen extends AddScreen {
         homeFrame = parent.getFrame();
     }
 
+    // EFFECTS: Returns a JPanel object representing the text entry boxes
     private JPanel setUpTextPanel() {
         JPanel textBoxPanel = new JPanel();
 
@@ -50,6 +57,7 @@ public class AddFlexibilityScreen extends AddScreen {
         return textBoxPanel;
     }
 
+    // EFFECTS: Returns a JPanel object representing the submit button
     private JPanel setUpSubmitButton() {
         JPanel submitButtonPanel = new JPanel();
 
@@ -66,6 +74,8 @@ public class AddFlexibilityScreen extends AddScreen {
         return submitButtonPanel;
     }
 
+    // MODIFIES: workout
+    // EFFECTS: Takes text inputs and creates a new exercise with information, adds exercise to the workout
     private void saveFields() {
         nameString = textBox2.getText();
         reps = Integer.parseInt(textBox3.getText());
@@ -80,7 +90,7 @@ public class AddFlexibilityScreen extends AddScreen {
 
     }
 
-
+    // GETTER
     public String getExerciseType() {
         return exerciseType;
     }

@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Represents the components of the add strength exercise screen on the workout log app
+
 public class AddStrengthScreen extends AddScreen {
 
     private String exerciseType = "Strength";
@@ -30,6 +32,11 @@ public class AddStrengthScreen extends AddScreen {
     private JFrame homeFrame;
 
 
+
+
+    // MODIFIES: this
+    // EFFECTS: instantiates a strength screen with the parent (GUI), a new button panel, text box panel, and the
+    //          JFrame (homeFrame)
     public AddStrengthScreen(GraphicalWorkoutLogApp parent) {
         super(parent);
         buttonPanel = setUpSubmitButton();
@@ -38,6 +45,7 @@ public class AddStrengthScreen extends AddScreen {
 
     }
 
+    // EFFECTS: Returns a JPanel object representing the text entry boxes
     private JPanel setUpTextPanel() {
         JPanel textBoxPanel = new JPanel();
 
@@ -56,6 +64,7 @@ public class AddStrengthScreen extends AddScreen {
         return textBoxPanel;
     }
 
+    // EFFECTS: Returns a JPanel object representing the submit button
     private JPanel setUpSubmitButton() {
         JPanel submitButtonPanel = new JPanel();
 
@@ -73,6 +82,8 @@ public class AddStrengthScreen extends AddScreen {
     }
 
 
+    // MODIFIES: workout
+    // EFFECTS: Takes text inputs and creates a new exercise with information, adds exercise to the workout
     private void saveFields() {
         nameString = textBox2.getText();
         weight = Integer.parseInt(textBox3.getText());
@@ -88,8 +99,7 @@ public class AddStrengthScreen extends AddScreen {
 
     }
 
-
-
+    // GETTER
 
     public String getExerciseType() {
         return exerciseType;
