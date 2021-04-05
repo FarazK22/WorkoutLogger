@@ -72,8 +72,9 @@ public class AddEnduranceScreen extends AddScreen {
     }
 
     // MODIFIES: workout
-    // EFFECTS: Takes text inputs and creates a new exercise with information, adds exercise t
-    private void saveFields() {
+    // EFFECTS: Takes text inputs and creates a new exercise with information, adds exercise to list
+    @Override
+    protected void saveFields() {
         nameString = textBox2.getText();
         distance = Double.parseDouble(textBox3.getText());
         dur = Integer.parseInt(textBox4.getText());

@@ -76,7 +76,8 @@ public class AddFlexibilityScreen extends AddScreen {
 
     // MODIFIES: workout
     // EFFECTS: Takes text inputs and creates a new exercise with information, adds exercise to the workout
-    private void saveFields() {
+    @Override
+    protected void saveFields() {
         nameString = textBox2.getText();
         reps = Integer.parseInt(textBox3.getText());
         dur = Integer.parseInt(textBox4.getText());

@@ -32,6 +32,7 @@ public abstract class AddScreen extends JPanel {
         this.log = parent.getLog();
     }
 
+    protected abstract void saveFields();
 
 
     // GETTERS

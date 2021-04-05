@@ -35,3 +35,28 @@ As a user, I want to be able to:
 - view a summary of all of my logged exercises and intensity of each
 - save my workouts when I'm done using the app
 - load my workout history and compare my workouts to each other
+
+## Phase 4: Task 2
+
+I have chosen to implement a type hierarchy in my code. There are two abstract classes in my code. The first is seen in
+the exercises package in the model package where an abstract exercise class is extended by the FlexibilityExercise, 
+EnduranceExercise, and StrengthExercise classes. These classes inherit all the fields of the Exercise abstract class and
+each of their constructors behaves differently. Another example of a type hierarchy in my code is in my panels package 
+within the ui package. The AddScreen abstract class is extended by the AddEnduranceScreen, AddFlexibilityScreen, and 
+AddStrengthScreen classes. The subclasses all Override the saveFields method from the AddScreen class and implement this
+method differently. 
+
+
+## Phase 4: Task 3
+
+In my class diagram, I can see that my design has made good use of abstract classes to reduce redundancies in code and
+to reduce semantic coupling between classes. The classes in my application have a lot of similar code as many classes
+emulate each other and do similar things with minor differences, so the use of abstract classes to abstract these 
+similarities made it easier to edit code without errors. One thing I noticed when creating this UML diagram was that 
+there was certainly room for improvement in cohesion of my GUI classes. In particular, the AddEnduranceScreen, 
+AddFlexibilityScreen, and AddStrengthScreen could have been split into more classes to further separate the JPanel 
+components into their own unique classes and allow for more seamless edits should I want to add or replace features. 
+
+In addition, there are still some methods I feel could be abstracted and moved into existing abstract classes as there 
+are a few points in my code where redundancies exist between similar classes and abstracting some of these redundancies
+will surely improve coupling issues. Overall, I am happy with many of the design choices I made in my application. 

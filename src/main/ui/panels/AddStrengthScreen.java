@@ -32,8 +32,6 @@ public class AddStrengthScreen extends AddScreen {
     private JFrame homeFrame;
 
 
-
-
     // MODIFIES: this
     // EFFECTS: instantiates a strength screen with the parent (GUI), a new button panel, text box panel, and the
     //          JFrame (homeFrame)
@@ -44,6 +42,25 @@ public class AddStrengthScreen extends AddScreen {
         homeFrame = parent.getFrame();
 
     }
+
+    @Override
+    protected void saveFields() {
+        // MODIFIES: workout
+        // EFFECTS: Takes text inputs and creates a new exercise with information, adds exercise to the workout
+        nameString = textBox2.getText();
+        weight = Integer.parseInt(textBox3.getText());
+        reps = Integer.parseInt(textBox4.getText());
+        dur = Integer.parseInt(textBox5.getText());
+
+        exercise = new StrengthExercise(nameString, exerciseType, dur, reps, weight);
+
+        Workout workout = parent.getActiveWorkout();
+        workout.addExercise(exercise);
+
+        parent.continueOption();
+
+    }
+
 
     // EFFECTS: Returns a JPanel object representing the text entry boxes
     private JPanel setUpTextPanel() {
@@ -81,23 +98,6 @@ public class AddStrengthScreen extends AddScreen {
         return submitButtonPanel;
     }
 
-
-    // MODIFIES: workout
-    // EFFECTS: Takes text inputs and creates a new exercise with information, adds exercise to the workout
-    private void saveFields() {
-        nameString = textBox2.getText();
-        weight = Integer.parseInt(textBox3.getText());
-        reps = Integer.parseInt(textBox4.getText());
-        dur = Integer.parseInt(textBox5.getText());
-
-        exercise = new StrengthExercise(nameString, exerciseType, dur, reps, weight);
-
-        Workout workout = parent.getActiveWorkout();
-        workout.addExercise(exercise);
-
-        parent.continueOption();
-
-    }
 
     // GETTER
 
